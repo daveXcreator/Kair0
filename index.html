@@ -1162,23 +1162,44 @@
         .forEach((el) => observer.observe(el));
 
       // Waitlist
-      function joinWaitlist() {
-        const email = document.getElementById("email-input").value;
+      const FORMSPREE_URL = "https://formspree.io/f/xkopplbg"; // ← paste yours here
+
+      async function submitEmail(emailId, wrapSelector, successId) {
+        const email = document.getElementById(emailId).value;
         if (!email || !email.includes("@")) {
-          document.getElementById("email-input").style.borderLeft =
+          document.getElementById(emailId).style.borderLeft =
             "2px solid #f87171";
           return;
         }
-        document.querySelector(".form-wrap").style.opacity = "0.4";
-        document.getElementById("success-msg").style.display = "block";
-        document.getElementById("email-input").value = "";
+
+        try {
+          const res = await fetch(FORMSPREE_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({ email }),
+          });
+
+          if (res.ok) {
+            document.getElementById(emailId).value = "";
+            if (successId)
+              document.getElementById(successId).style.display = "block";
+            else alert("You're on the list. We'll reach out before launch.");
+          } else {
+            alert("Something went wrong. Try again.");
+          }
+        } catch {
+          alert("Network error. Try again.");
+        }
       }
 
+      function joinWaitlist() {
+        submitEmail("email-input", ".form-wrap", "success-msg");
+      }
       function joinWaitlist2() {
-        const email = document.getElementById("email-input-2").value;
-        if (!email || !email.includes("@")) return;
-        alert("You're on the list. We'll reach out before launch.");
-        document.getElementById("email-input-2").value = "";
+        submitEmail("email-input-2", null, null);
       }
     </script>
   </body>
