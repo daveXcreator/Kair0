@@ -764,7 +764,7 @@
         font-style: italic;
         color: var(--green);
       }
-      .zero{
+      .zero {
         color: var(--green);
       }
 
@@ -856,6 +856,13 @@
         .hero h1 {
           letter-spacing: -1px;
         }
+        .hero-content {
+          max-width: 100%;
+          padding: 0;
+        }
+        .form-wrap {
+          max-width: 100%;
+        }
       }
     </style>
   </head>
@@ -863,7 +870,8 @@
     <!-- NAV -->
     <nav id="nav">
       <div class="nav-logo">
-        <img src="kairo-logo.png" alt="Kair0" width="35px" /><div>Kair<span>0</span></div>
+        <img src="kairo-logo.png" alt="Kair0" width="35px" />
+        <div>Kair<span>0</span></div>
       </div>
       <a href="#waitlist" class="nav-cta">Join Waitlist</a>
     </nav>
@@ -958,7 +966,7 @@
 
         <!-- FORM -->
         <div id="waitlist">
-          <div class="form-wrap">
+          <div class="form-wrap" style="margin: 0 auto">
             <input
               type="email"
               id="email-input"
