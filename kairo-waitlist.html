@@ -1,0 +1,1174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kairo - Market Intelligence</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0b0c0b;
+        --bg2: #101110;
+        --bg3: #141514;
+        --border: #1e201e;
+        --border2: #252725;
+        --text: #eceee8;
+        --text2: #9a9e96;
+        --text3: #545854;
+        --green: #3fd97a;
+        --green-dim: #1a4a2e;
+        --green-glow: rgba(63, 217, 122, 0.08);
+        --gold: #c9a96e;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* ── NOISE OVERLAY ── */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+        opacity: 0.025;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 20px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid transparent;
+        transition:
+          border-color 0.3s,
+          background 0.3s;
+      }
+
+      nav.scrolled {
+        background: rgba(11, 12, 11, 0.92);
+        backdrop-filter: blur(12px);
+        border-color: var(--border);
+      }
+
+      .nav-logo {
+        font-family: "Fraunces", serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.3px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .nav-logo span {
+        color: var(--green);
+      }
+
+      .nav-cta {
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--bg);
+        background: var(--green);
+        border: none;
+        border-radius: 8px;
+        padding: 9px 20px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: opacity 0.2s;
+      }
+
+      .nav-cta:hover {
+        opacity: 0.85;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 120px 24px 80px;
+        overflow: hidden;
+      }
+
+      /* Grid background */
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(var(--border) 1px, transparent 1px),
+          linear-gradient(90deg, var(--border) 1px, transparent 1px);
+        background-size: 48px 48px;
+        opacity: 0.4;
+        mask-image: radial-gradient(
+          ellipse 80% 70% at 50% 40%,
+          black 30%,
+          transparent 100%
+        );
+        pointer-events: none;
+      }
+
+      /* Green radial glow */
+      .hero-glow {
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 600px;
+        height: 400px;
+        background: radial-gradient(
+          ellipse,
+          rgba(63, 217, 122, 0.12) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 720px;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--green);
+        background: var(--green-glow);
+        border: 1px solid rgba(63, 217, 122, 0.2);
+        border-radius: 100px;
+        padding: 6px 14px;
+        margin-bottom: 32px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .badge-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--green);
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+      }
+
+      .hero h1 {
+        font-family: "Fraunces", serif;
+        font-size: clamp(48px, 8vw, 88px);
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -2px;
+        color: var(--text);
+        margin-bottom: 24px;
+        animation: fadeUp 0.6s 0.1s ease both;
+      }
+
+      .hero h1 em {
+        font-style: italic;
+        color: var(--green);
+      }
+
+      .hero-sub {
+        font-size: 17px;
+        color: var(--text2);
+        line-height: 1.7;
+        max-width: 520px;
+        margin: 0 auto 48px;
+        animation: fadeUp 0.6s 0.2s ease both;
+      }
+
+      /* ── TICKER STRIP ── */
+      .ticker-wrap {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 48px;
+        animation: fadeUp 0.6s 0.3s ease both;
+      }
+
+      .ticker-wrap::before,
+      .ticker-wrap::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 80px;
+        z-index: 2;
+      }
+      .ticker-wrap::before {
+        left: 0;
+        background: linear-gradient(90deg, var(--bg), transparent);
+      }
+      .ticker-wrap::after {
+        right: 0;
+        background: linear-gradient(-90deg, var(--bg), transparent);
+      }
+
+      .ticker {
+        display: flex;
+        gap: 12px;
+        width: max-content;
+        animation: ticker 24s linear infinite;
+      }
+
+      @keyframes ticker {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .tick-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 8px 16px;
+        white-space: nowrap;
+      }
+
+      .tick-pair {
+        font-family: "Fraunces", serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .tick-bias {
+        font-size: 11px;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+
+      .tick-bias.bull {
+        background: rgba(63, 217, 122, 0.12);
+        color: var(--green);
+      }
+      .tick-bias.bear {
+        background: rgba(248, 113, 113, 0.1);
+        color: #f87171;
+      }
+      .tick-bias.neut {
+        background: rgba(250, 204, 21, 0.1);
+        color: #facc15;
+      }
+
+      /* ── WAITLIST FORM ── */
+      .form-wrap {
+        display: flex;
+        gap: 0;
+        max-width: 480px;
+        width: 100%;
+        margin: 0 auto;
+        animation: fadeUp 0.6s 0.4s ease both;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border2);
+      }
+
+      .form-wrap input {
+        flex: 1;
+        background: var(--bg2);
+        border: none;
+        outline: none;
+        padding: 14px 18px;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        color: var(--text);
+        min-width: 0;
+      }
+
+      .form-wrap input::placeholder {
+        color: var(--text3);
+      }
+
+      .form-wrap button {
+        background: var(--green);
+        border: none;
+        padding: 14px 24px;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: #0b0c0b;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: opacity 0.2s;
+      }
+
+      .form-wrap button:hover {
+        opacity: 0.85;
+      }
+
+      .form-note {
+        font-size: 11px;
+        color: var(--text3);
+        margin-top: 12px;
+        animation: fadeUp 0.6s 0.5s ease both;
+      }
+
+      /* ── STATS ROW ── */
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 48px;
+        padding: 60px 24px;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        position: relative;
+        z-index: 1;
+      }
+
+      .stat {
+        text-align: center;
+      }
+
+      .stat-num {
+        font-family: "Fraunces", serif;
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -1px;
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+
+      .stat-num span {
+        color: var(--green);
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: var(--text3);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+
+      /* ── HOW IT WORKS ── */
+      .how {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 100px 24px;
+      }
+
+      .section-tag {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--green);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .section-tag::before {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 1px;
+        background: var(--green);
+      }
+
+      .section-title {
+        font-family: "Fraunces", serif;
+        font-size: clamp(32px, 5vw, 52px);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
+        color: var(--text);
+      }
+
+      .section-title em {
+        font-style: italic;
+        color: var(--green);
+      }
+
+      .section-sub {
+        font-size: 15px;
+        color: var(--text2);
+        max-width: 480px;
+        line-height: 1.7;
+        margin-bottom: 64px;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
+        background: var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+
+      .step {
+        background: var(--bg2);
+        padding: 36px 32px;
+        position: relative;
+        transition: background 0.2s;
+      }
+
+      .step:hover {
+        background: var(--bg3);
+      }
+
+      .step-num {
+        font-family: "Fraunces", serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--green);
+        margin-bottom: 20px;
+        opacity: 0.6;
+      }
+
+      .step-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--green-glow);
+        border: 1px solid rgba(63, 217, 122, 0.15);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .step-icon svg {
+        width: 18px;
+        height: 18px;
+        stroke: var(--green);
+        fill: none;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .step h3 {
+        font-family: "Fraunces", serif;
+        font-size: 19px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 10px;
+        letter-spacing: -0.3px;
+        line-height: 1.2;
+      }
+
+      .step p {
+        font-size: 13.5px;
+        color: var(--text2);
+        line-height: 1.65;
+      }
+
+      /* ── REPORT PREVIEW ── */
+      .preview-section {
+        padding: 0 24px 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .preview-label {
+        font-size: 11px;
+        color: var(--text3);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 24px;
+      }
+
+      .report-card {
+        background: var(--bg2);
+        border: 1px solid var(--border2);
+        border-radius: 16px;
+        max-width: 440px;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .rc-top {
+        padding: 22px 24px 18px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .rc-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+
+      .rc-pair {
+        font-family: "Fraunces", serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .rc-event {
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--text3);
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 4px 10px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      .rc-bias-label {
+        font-size: 10px;
+        color: var(--text3);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+      }
+
+      .rc-bias {
+        font-family: "Fraunces", serif;
+        font-size: 44px;
+        font-weight: 700;
+        color: var(--green);
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+
+      .rc-dir {
+        font-size: 12px;
+        color: var(--text2);
+        margin-bottom: 14px;
+      }
+
+      .rc-conf {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .rc-conf-label {
+        font-size: 10px;
+        color: var(--text3);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+
+      .rc-bar {
+        flex: 1;
+        height: 2px;
+        background: var(--border);
+        border-radius: 2px;
+      }
+      .rc-fill {
+        height: 100%;
+        width: 62%;
+        background: var(--green);
+        border-radius: 2px;
+      }
+      .rc-conf-val {
+        font-size: 10px;
+        color: var(--text3);
+      }
+
+      .rc-body {
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .rc-section-label {
+        font-size: 9px;
+        font-weight: 500;
+        color: var(--text3);
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        margin-bottom: 8px;
+      }
+
+      .rc-why {
+        font-size: 13px;
+        color: #8a8e86;
+        line-height: 1.65;
+        margin-bottom: 18px;
+      }
+
+      .rc-levels {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .rc-level {
+        flex: 1;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 11px 14px;
+      }
+
+      .rc-level-type {
+        font-size: 9px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+      }
+
+      .rc-level-type.res {
+        color: #f87171;
+      }
+      .rc-level-type.sup {
+        color: var(--green);
+      }
+
+      .rc-level-val {
+        font-family: "Fraunces", serif;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .rc-tf {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .rc-tf-chip {
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--gold);
+        background: rgba(201, 169, 110, 0.08);
+        border: 1px solid rgba(201, 169, 110, 0.15);
+        border-radius: 6px;
+        padding: 3px 9px;
+      }
+
+      .rc-tf-text {
+        font-size: 11px;
+        color: var(--text3);
+      }
+
+      .rc-footer {
+        padding: 12px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .rc-disclaimer {
+        font-size: 10px;
+        color: var(--text3);
+        line-height: 1.5;
+        flex: 1;
+        opacity: 0.6;
+      }
+
+      .rc-brand {
+        font-family: "Fraunces", serif;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--border2);
+        letter-spacing: 1px;
+      }
+
+      /* ── BOTTOM CTA ── */
+      .bottom-cta {
+        text-align: center;
+        padding: 100px 24px 120px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .bottom-cta::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 500px;
+        height: 300px;
+        background: radial-gradient(
+          ellipse,
+          rgba(63, 217, 122, 0.1) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .bottom-cta h2 {
+        font-family: "Fraunces", serif;
+        font-size: clamp(36px, 6vw, 64px);
+        font-weight: 700;
+        letter-spacing: -1.5px;
+        line-height: 1.05;
+        margin-bottom: 20px;
+        color: var(--text);
+      }
+
+      .bottom-cta h2 em {
+        font-style: italic;
+        color: var(--green);
+      }
+
+      .bottom-cta p {
+        font-size: 15px;
+        color: var(--text2);
+        margin-bottom: 40px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 24px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-logo {
+        font-family: "Fraunces", serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text3);
+      }
+
+      .footer-logo span {
+        color: var(--green);
+      }
+
+      footer p {
+        font-size: 12px;
+        color: var(--text3);
+      }
+
+      /* ── ANIMATIONS ── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── SUCCESS STATE ── */
+      .success-msg {
+        display: none;
+        font-size: 13px;
+        color: var(--green);
+        margin-top: 12px;
+        animation: fadeUp 0.4s ease both;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 640px) {
+        nav {
+          padding: 16px 20px;
+        }
+        .stats {
+          gap: 24px;
+          flex-wrap: wrap;
+        }
+        .steps {
+          grid-template-columns: 1fr;
+        }
+        footer {
+          flex-direction: column;
+          gap: 8px;
+          text-align: center;
+        }
+        .hero h1 {
+          letter-spacing: -1px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav id="nav">
+      <div class="nav-logo">
+        <img src="kairo-logo.png" alt="Kair0" width="35px" />Kair0
+      </div>
+      <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Now in development · Join early
+        </div>
+
+        <h1>The market<br />just <em>moved.</em><br />We told you first.</h1>
+
+        <p class="hero-sub">
+          Kair0 reads global news in real time and delivers structured market
+          bias for forex pairs directly to your X feed and Telegram. No noise.
+          Just direction.
+        </p>
+
+        <!-- TICKER -->
+        <div class="ticker-wrap">
+          <div class="ticker" id="ticker">
+            <div class="tick-item">
+              <span class="tick-pair">EUR/USD</span
+              ><span class="tick-bias bull">Bullish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">GBP/JPY</span
+              ><span class="tick-bias bear">Bearish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">USD/CAD</span
+              ><span class="tick-bias neut">Neutral</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">AUD/USD</span
+              ><span class="tick-bias bull">Bullish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">USD/CHF</span
+              ><span class="tick-bias bear">Bearish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">NZD/USD</span
+              ><span class="tick-bias bull">Bullish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">USD/JPY</span
+              ><span class="tick-bias bear">Bearish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">EUR/GBP</span
+              ><span class="tick-bias neut">Neutral</span>
+            </div>
+            <!-- duplicate for seamless loop -->
+            <div class="tick-item">
+              <span class="tick-pair">EUR/USD</span
+              ><span class="tick-bias bull">Bullish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">GBP/JPY</span
+              ><span class="tick-bias bear">Bearish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">USD/CAD</span
+              ><span class="tick-bias neut">Neutral</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">AUD/USD</span
+              ><span class="tick-bias bull">Bullish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">USD/CHF</span
+              ><span class="tick-bias bear">Bearish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">NZD/USD</span
+              ><span class="tick-bias bull">Bullish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">USD/JPY</span
+              ><span class="tick-bias bear">Bearish</span>
+            </div>
+            <div class="tick-item">
+              <span class="tick-pair">EUR/GBP</span
+              ><span class="tick-bias neut">Neutral</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <div id="waitlist">
+          <div class="form-wrap">
+            <input
+              type="email"
+              id="email-input"
+              placeholder="Enter your email address"
+            />
+            <button onclick="joinWaitlist()">Join Waitlist</button>
+          </div>
+          <p class="form-note">
+            Free during beta · No spam · Unsubscribe anytime
+          </p>
+          <p class="success-msg" id="success-msg">
+            ✓ You're on the list. We'll reach out before launch.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats fade-in">
+      <div class="stat">
+        <div class="stat-num">24<span>/7</span></div>
+        <div class="stat-label">News Monitoring</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span>&lt;</span>60s</div>
+        <div class="stat-label">Signal Delivery</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">28<span>+</span></div>
+        <div class="stat-label">Forex Pairs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">0<span>$</span></div>
+        <div class="stat-label">Free in Beta</div>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section class="how">
+      <div class="section-tag fade-in">How it works</div>
+      <h2 class="section-title fade-in">
+        From news to <em>bias</em><br />in under a minute.
+      </h2>
+      <p class="section-sub fade-in">
+        Most traders find out what news means for the market hours too late.
+        Kairo changes that.
+      </p>
+
+      <div class="steps">
+        <div class="step fade-in">
+          <div class="step-num">01</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4l3 3" />
+            </svg>
+          </div>
+          <h3>News drops</h3>
+          <p>
+            Kairo monitors global financial news feeds 24/7; CPI, NFP, rate
+            decisions, geopolitical events. The moment a trigger fires, the
+            engine activates.
+          </p>
+        </div>
+        <div class="step fade-in" style="transition-delay: 0.1s">
+          <div class="step-num">02</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5" />
+              <path d="M2 12l10 5 10-5" />
+            </svg>
+          </div>
+          <h3>AI reads the market</h3>
+          <p>
+            The AI analyses the event, cross-references affected pairs, and
+            generates a structured bias, direction, reasoning, key levels, and
+            timeframe.
+          </p>
+        </div>
+        <div class="step fade-in" style="transition-delay: 0.2s">
+          <div class="step-num">03</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 2L11 13" />
+              <path d="M22 2L15 22l-4-9-9-4 20-7z" />
+            </svg>
+          </div>
+          <h3>You get the signal</h3>
+          <p>
+            A clean, structured bias report lands in your Telegram or X feed
+            before the crowd has finished reading the headline.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPORT PREVIEW -->
+    <section class="preview-section">
+      <p class="preview-label fade-in">Sample report</p>
+      <div class="report-card fade-in">
+        <div class="rc-top">
+          <div class="rc-meta">
+            <span class="rc-pair">EUR/USD</span>
+            <span class="rc-event">US CPI Release</span>
+          </div>
+          <div class="rc-bias-label">Bias</div>
+          <div class="rc-bias">Bullish</div>
+          <div class="rc-dir">Upside continuation likely · 1–4H window</div>
+          <div class="rc-conf">
+            <span class="rc-conf-label">Confidence</span>
+            <div class="rc-bar"><div class="rc-fill"></div></div>
+            <span class="rc-conf-val">Moderate</span>
+          </div>
+        </div>
+        <div class="rc-body">
+          <div class="rc-section-label">Why</div>
+          <div class="rc-why">
+            US CPI came in below expectations at 3.1% vs 3.4% forecast. Softer
+            inflation weakens the case for further Fed tightening, pressuring
+            the dollar.
+          </div>
+          <div class="rc-section-label">Key Levels</div>
+          <div class="rc-levels">
+            <div class="rc-level">
+              <div class="rc-level-type res">Resistance</div>
+              <div class="rc-level-val">1.0850</div>
+            </div>
+            <div class="rc-level">
+              <div class="rc-level-type sup">Support</div>
+              <div class="rc-level-val">1.0780</div>
+            </div>
+          </div>
+          <div class="rc-section-label">Timeframe</div>
+          <div class="rc-tf">
+            <span class="rc-tf-chip">1H – 4H</span>
+            <span class="rc-tf-text">Reaction window post-release</span>
+          </div>
+        </div>
+        <div class="rc-footer">
+          <div class="rc-disclaimer">
+            AI-generated intelligence, not financial advice. DYOR. You are
+            solely responsible for your trading decisions.
+          </div>
+          <div class="rc-brand">KAIR0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM CTA -->
+    <section class="bottom-cta fade-in">
+      <h2>Trade with<br /><em>clarity.</em></h2>
+      <p>Join the waitlist and be first to access Kair0 when we launch.</p>
+      <div class="form-wrap" style="margin: 0 auto">
+        <input
+          type="email"
+          id="email-input-2"
+          placeholder="Enter your email address"
+        />
+        <button onclick="joinWaitlist2()">Get Early Access</button>
+      </div>
+      <p class="form-note" style="margin-top: 12px">
+        Free during beta · No spam
+      </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">K<span>0</span> Kair0</div>
+      <p>© 2025 Kairo. AI-generated intelligence, not financial advice.</p>
+    </footer>
+
+    <script>
+      // Nav scroll
+      window.addEventListener("scroll", () => {
+        document
+          .getElementById("nav")
+          .classList.toggle("scrolled", window.scrollY > 40);
+      });
+
+      // Intersection observer for fade-ins
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.12 },
+      );
+
+      document
+        .querySelectorAll(".fade-in")
+        .forEach((el) => observer.observe(el));
+
+      // Waitlist
+      function joinWaitlist() {
+        const email = document.getElementById("email-input").value;
+        if (!email || !email.includes("@")) {
+          document.getElementById("email-input").style.borderLeft =
+            "2px solid #f87171";
+          return;
+        }
+        document.querySelector(".form-wrap").style.opacity = "0.4";
+        document.getElementById("success-msg").style.display = "block";
+        document.getElementById("email-input").value = "";
+      }
+
+      function joinWaitlist2() {
+        const email = document.getElementById("email-input-2").value;
+        if (!email || !email.includes("@")) return;
+        alert("You're on the list. We'll reach out before launch.");
+        document.getElementById("email-input-2").value = "";
+      }
+    </script>
+  </body>
+</html>
