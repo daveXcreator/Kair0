@@ -3,19 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kairo - Market Intelligence</title>
+    <title>kair0 - Market Intelligence</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
       :root {
         --bg: #0b0c0b;
@@ -32,9 +26,7 @@
         --gold: #c9a96e;
       }
 
-      html {
-        scroll-behavior: smooth;
-      }
+      html { scroll-behavior: smooth; }
 
       body {
         background: var(--bg);
@@ -45,7 +37,6 @@
         overflow-x: hidden;
       }
 
-      /* ── NOISE OVERLAY ── */
       body::before {
         content: "";
         position: fixed;
@@ -56,21 +47,17 @@
         z-index: 0;
       }
 
-      /* ── NAV ── */
+      /* NAV */
       nav {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        top: 0; left: 0; right: 0;
         z-index: 100;
         padding: 20px 40px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         border-bottom: 1px solid transparent;
-        transition:
-          border-color 0.3s,
-          background 0.3s;
+        transition: border-color 0.3s, background 0.3s;
       }
 
       nav.scrolled {
@@ -90,8 +77,35 @@
         gap: 8px;
       }
 
-      .nav-logo span {
-        color: var(--green);
+      .nav-logo span { color: var(--green); }
+
+      .nav-right { display: flex; align-items: center; gap: 12px; }
+
+      .nav-telegram {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--text2);
+        background: transparent;
+        border: 1px solid var(--border2);
+        border-radius: 8px;
+        padding: 8px 16px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+
+      .nav-telegram:hover {
+        color: var(--text);
+        border-color: var(--text3);
+      }
+
+      .nav-telegram svg {
+        width: 14px; height: 14px;
+        fill: currentColor;
       }
 
       .nav-cta {
@@ -108,11 +122,9 @@
         transition: opacity 0.2s;
       }
 
-      .nav-cta:hover {
-        opacity: 0.85;
-      }
+      .nav-cta:hover { opacity: 0.85; }
 
-      /* ── HERO ── */
+      /* HERO */
       .hero {
         position: relative;
         min-height: 100vh;
@@ -125,7 +137,6 @@
         overflow: hidden;
       }
 
-      /* Grid background */
       .hero::after {
         content: "";
         position: absolute;
@@ -135,35 +146,20 @@
           linear-gradient(90deg, var(--border) 1px, transparent 1px);
         background-size: 48px 48px;
         opacity: 0.4;
-        mask-image: radial-gradient(
-          ellipse 80% 70% at 50% 40%,
-          black 30%,
-          transparent 100%
-        );
+        mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 30%, transparent 100%);
         pointer-events: none;
       }
 
-      /* Green radial glow */
       .hero-glow {
         position: absolute;
-        top: 20%;
-        left: 50%;
+        top: 20%; left: 50%;
         transform: translateX(-50%);
-        width: 600px;
-        height: 400px;
-        background: radial-gradient(
-          ellipse,
-          rgba(63, 217, 122, 0.12) 0%,
-          transparent 70%
-        );
+        width: 600px; height: 400px;
+        background: radial-gradient(ellipse, rgba(63, 217, 122, 0.12) 0%, transparent 70%);
         pointer-events: none;
       }
 
-      .hero-content {
-        position: relative;
-        z-index: 1;
-        max-width: 720px;
-      }
+      .hero-content { position: relative; z-index: 1; max-width: 720px; }
 
       .hero-badge {
         display: inline-flex;
@@ -183,23 +179,15 @@
       }
 
       .badge-dot {
-        width: 6px;
-        height: 6px;
+        width: 6px; height: 6px;
         background: var(--green);
         border-radius: 50%;
         animation: pulse 2s ease-in-out infinite;
       }
 
       @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-          transform: scale(1);
-        }
-        50% {
-          opacity: 0.5;
-          transform: scale(0.8);
-        }
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(0.8); }
       }
 
       .hero h1 {
@@ -213,10 +201,7 @@
         animation: fadeUp 0.6s 0.1s ease both;
       }
 
-      .hero h1 em {
-        font-style: italic;
-        color: var(--green);
-      }
+      .hero h1 em { font-style: italic; color: var(--green); }
 
       .hero-sub {
         font-size: 17px;
@@ -227,7 +212,7 @@
         animation: fadeUp 0.6s 0.2s ease both;
       }
 
-      /* ── TICKER STRIP ── */
+      /* TICKER */
       .ticker-wrap {
         position: relative;
         width: 100%;
@@ -236,23 +221,15 @@
         animation: fadeUp 0.6s 0.3s ease both;
       }
 
-      .ticker-wrap::before,
-      .ticker-wrap::after {
+      .ticker-wrap::before, .ticker-wrap::after {
         content: "";
         position: absolute;
-        top: 0;
-        bottom: 0;
+        top: 0; bottom: 0;
         width: 80px;
         z-index: 2;
       }
-      .ticker-wrap::before {
-        left: 0;
-        background: linear-gradient(90deg, var(--bg), transparent);
-      }
-      .ticker-wrap::after {
-        right: 0;
-        background: linear-gradient(-90deg, var(--bg), transparent);
-      }
+      .ticker-wrap::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+      .ticker-wrap::after { right: 0; background: linear-gradient(-90deg, var(--bg), transparent); }
 
       .ticker {
         display: flex;
@@ -262,12 +239,8 @@
       }
 
       @keyframes ticker {
-        from {
-          transform: translateX(0);
-        }
-        to {
-          transform: translateX(-50%);
-        }
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
       }
 
       .tick-item {
@@ -281,87 +254,13 @@
         white-space: nowrap;
       }
 
-      .tick-pair {
-        font-family: "Fraunces", serif;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--text);
-      }
+      .tick-pair { font-family: "Fraunces", serif; font-size: 13px; font-weight: 600; color: var(--text); }
+      .tick-bias { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; }
+      .tick-bias.bull { background: rgba(63, 217, 122, 0.12); color: var(--green); }
+      .tick-bias.bear { background: rgba(248, 113, 113, 0.1); color: #f87171; }
+      .tick-bias.neut { background: rgba(250, 204, 21, 0.1); color: #facc15; }
 
-      .tick-bias {
-        font-size: 11px;
-        font-weight: 500;
-        padding: 2px 8px;
-        border-radius: 4px;
-      }
-
-      .tick-bias.bull {
-        background: rgba(63, 217, 122, 0.12);
-        color: var(--green);
-      }
-      .tick-bias.bear {
-        background: rgba(248, 113, 113, 0.1);
-        color: #f87171;
-      }
-      .tick-bias.neut {
-        background: rgba(250, 204, 21, 0.1);
-        color: #facc15;
-      }
-
-      /* ── WAITLIST FORM ── */
-      .form-wrap {
-        display: flex;
-        gap: 0;
-        max-width: 480px;
-        width: 100%;
-        margin: 0 auto;
-        animation: fadeUp 0.6s 0.4s ease both;
-        border-radius: 12px;
-        overflow: hidden;
-        border: 1px solid var(--border2);
-      }
-
-      .form-wrap input {
-        flex: 1;
-        background: var(--bg2);
-        border: none;
-        outline: none;
-        padding: 14px 18px;
-        font-family: "Inter", sans-serif;
-        font-size: 14px;
-        color: var(--text);
-        min-width: 0;
-      }
-
-      .form-wrap input::placeholder {
-        color: var(--text3);
-      }
-
-      .form-wrap button {
-        background: var(--green);
-        border: none;
-        padding: 14px 24px;
-        font-family: "Inter", sans-serif;
-        font-size: 13px;
-        font-weight: 500;
-        color: #0b0c0b;
-        cursor: pointer;
-        white-space: nowrap;
-        transition: opacity 0.2s;
-      }
-
-      .form-wrap button:hover {
-        opacity: 0.85;
-      }
-
-      .form-note {
-        font-size: 11px;
-        color: var(--text3);
-        margin-top: 12px;
-        animation: fadeUp 0.6s 0.5s ease both;
-      }
-
-      /* ── STATS ROW ── */
+      /* STATS */
       .stats {
         display: flex;
         justify-content: center;
@@ -373,9 +272,7 @@
         z-index: 1;
       }
 
-      .stat {
-        text-align: center;
-      }
+      .stat { text-align: center; }
 
       .stat-num {
         font-family: "Fraunces", serif;
@@ -387,23 +284,11 @@
         margin-bottom: 6px;
       }
 
-      .stat-num span {
-        color: var(--green);
-      }
+      .stat-num span { color: var(--green); }
+      .stat-label { font-size: 12px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; }
 
-      .stat-label {
-        font-size: 12px;
-        color: var(--text3);
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-      }
-
-      /* ── HOW IT WORKS ── */
-      .how {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 100px 24px;
-      }
+      /* HOW IT WORKS */
+      .how { max-width: 900px; margin: 0 auto; padding: 100px 24px; }
 
       .section-tag {
         font-size: 11px;
@@ -417,13 +302,7 @@
         gap: 8px;
       }
 
-      .section-tag::before {
-        content: "";
-        display: block;
-        width: 20px;
-        height: 1px;
-        background: var(--green);
-      }
+      .section-tag::before { content: ""; display: block; width: 20px; height: 1px; background: var(--green); }
 
       .section-title {
         font-family: "Fraunces", serif;
@@ -435,18 +314,8 @@
         color: var(--text);
       }
 
-      .section-title em {
-        font-style: italic;
-        color: var(--green);
-      }
-
-      .section-sub {
-        font-size: 15px;
-        color: var(--text2);
-        max-width: 480px;
-        line-height: 1.7;
-        margin-bottom: 64px;
-      }
+      .section-title em { font-style: italic; color: var(--green); }
+      .section-sub { font-size: 15px; color: var(--text2); max-width: 480px; line-height: 1.7; margin-bottom: 64px; }
 
       .steps {
         display: grid;
@@ -457,29 +326,12 @@
         overflow: hidden;
       }
 
-      .step {
-        background: var(--bg2);
-        padding: 36px 32px;
-        position: relative;
-        transition: background 0.2s;
-      }
-
-      .step:hover {
-        background: var(--bg3);
-      }
-
-      .step-num {
-        font-family: "Fraunces", serif;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--green);
-        margin-bottom: 20px;
-        opacity: 0.6;
-      }
+      .step { background: var(--bg2); padding: 36px 32px; position: relative; transition: background 0.2s; }
+      .step:hover { background: var(--bg3); }
+      .step-num { font-family: "Fraunces", serif; font-size: 13px; font-weight: 600; color: var(--green); margin-bottom: 20px; opacity: 0.6; }
 
       .step-icon {
-        width: 40px;
-        height: 40px;
+        width: 40px; height: 40px;
         background: var(--green-glow);
         border: 1px solid rgba(63, 217, 122, 0.15);
         border-radius: 10px;
@@ -489,244 +341,132 @@
         margin-bottom: 20px;
       }
 
-      .step-icon svg {
-        width: 18px;
-        height: 18px;
-        stroke: var(--green);
-        fill: none;
-        stroke-width: 1.5;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
+      .step-icon svg { width: 18px; height: 18px; stroke: var(--green); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+      .step h3 { font-family: "Fraunces", serif; font-size: 19px; font-weight: 600; color: var(--text); margin-bottom: 10px; letter-spacing: -0.3px; line-height: 1.2; }
+      .step p { font-size: 13.5px; color: var(--text2); line-height: 1.65; }
 
-      .step h3 {
-        font-family: "Fraunces", serif;
-        font-size: 19px;
-        font-weight: 600;
-        color: var(--text);
-        margin-bottom: 10px;
-        letter-spacing: -0.3px;
-        line-height: 1.2;
-      }
+      /* REPORT PREVIEW */
+      .preview-section { padding: 0 24px 100px; display: flex; flex-direction: column; align-items: center; }
+      .preview-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; }
 
-      .step p {
-        font-size: 13.5px;
-        color: var(--text2);
-        line-height: 1.65;
-      }
+      .report-card { background: var(--bg2); border: 1px solid var(--border2); border-radius: 16px; max-width: 440px; width: 100%; overflow: hidden; }
+      .rc-top { padding: 22px 24px 18px; border-bottom: 1px solid var(--border); }
+      .rc-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+      .rc-pair { font-family: "Fraunces", serif; font-size: 20px; font-weight: 700; color: var(--text); }
+      .rc-event { font-size: 10px; font-weight: 500; color: var(--text3); background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; letter-spacing: 0.5px; text-transform: uppercase; }
+      .rc-bias-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+      .rc-bias { font-family: "Fraunces", serif; font-size: 44px; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 6px; }
+      .rc-dir { font-size: 12px; color: var(--text2); margin-bottom: 14px; }
+      .rc-conf { display: flex; align-items: center; gap: 10px; }
+      .rc-conf-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; }
+      .rc-bar { flex: 1; height: 2px; background: var(--border); border-radius: 2px; }
+      .rc-fill { height: 100%; width: 62%; background: var(--green); border-radius: 2px; }
+      .rc-conf-val { font-size: 10px; color: var(--text3); }
+      .rc-body { padding: 18px 24px; border-bottom: 1px solid var(--border); }
+      .rc-section-label { font-size: 9px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
+      .rc-why { font-size: 13px; color: #8a8e86; line-height: 1.65; margin-bottom: 18px; }
+      .rc-levels { display: flex; gap: 10px; margin-bottom: 18px; }
+      .rc-level { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; }
+      .rc-level-type { font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+      .rc-level-type.res { color: #f87171; }
+      .rc-level-type.sup { color: var(--green); }
+      .rc-level-val { font-family: "Fraunces", serif; font-size: 18px; font-weight: 600; color: var(--text); }
+      .rc-tf { display: flex; align-items: center; gap: 8px; }
+      .rc-tf-chip { font-size: 10px; font-weight: 500; color: var(--gold); background: rgba(201, 169, 110, 0.08); border: 1px solid rgba(201, 169, 110, 0.15); border-radius: 6px; padding: 3px 9px; }
+      .rc-tf-text { font-size: 11px; color: var(--text3); }
+      .rc-footer { padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+      .rc-disclaimer { font-size: 10px; color: var(--text3); line-height: 1.5; flex: 1; opacity: 0.6; }
+      .rc-brand { font-family: "Fraunces", serif; font-size: 12px; font-weight: 700; color: var(--border2); letter-spacing: 1px; }
 
-      /* ── REPORT PREVIEW ── */
-      .preview-section {
+      /* TELEGRAM SECTION */
+      .telegram-section {
+        max-width: 900px;
+        margin: 0 auto;
         padding: 0 24px 100px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
       }
 
-      .preview-label {
-        font-size: 11px;
-        color: var(--text3);
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        margin-bottom: 24px;
-      }
-
-      .report-card {
+      .telegram-card {
         background: var(--bg2);
         border: 1px solid var(--border2);
-        border-radius: 16px;
-        max-width: 440px;
-        width: 100%;
+        border-radius: 20px;
+        padding: 56px 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+        position: relative;
         overflow: hidden;
       }
 
-      .rc-top {
-        padding: 22px 24px 18px;
-        border-bottom: 1px solid var(--border);
+      .telegram-card::before {
+        content: "";
+        position: absolute;
+        top: -60px; right: -60px;
+        width: 300px; height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(63, 217, 122, 0.06) 0%, transparent 70%);
+        pointer-events: none;
       }
 
-      .rc-meta {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 14px;
-      }
+      .telegram-card-left { flex: 1; }
 
-      .rc-pair {
-        font-family: "Fraunces", serif;
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--text);
-      }
-
-      .rc-event {
-        font-size: 10px;
+      .telegram-tag {
+        font-size: 11px;
         font-weight: 500;
-        color: var(--text3);
-        background: var(--bg3);
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        padding: 4px 10px;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-      }
-
-      .rc-bias-label {
-        font-size: 10px;
-        color: var(--text3);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 4px;
-      }
-
-      .rc-bias {
-        font-family: "Fraunces", serif;
-        font-size: 44px;
-        font-weight: 700;
         color: var(--green);
-        line-height: 1;
-        margin-bottom: 6px;
-      }
-
-      .rc-dir {
-        font-size: 12px;
-        color: var(--text2);
-        margin-bottom: 14px;
-      }
-
-      .rc-conf {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .rc-conf-label {
-        font-size: 10px;
-        color: var(--text3);
         text-transform: uppercase;
-        letter-spacing: 0.8px;
-      }
-
-      .rc-bar {
-        flex: 1;
-        height: 2px;
-        background: var(--border);
-        border-radius: 2px;
-      }
-      .rc-fill {
-        height: 100%;
-        width: 62%;
-        background: var(--green);
-        border-radius: 2px;
-      }
-      .rc-conf-val {
-        font-size: 10px;
-        color: var(--text3);
-      }
-
-      .rc-body {
-        padding: 18px 24px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .rc-section-label {
-        font-size: 9px;
-        font-weight: 500;
-        color: var(--text3);
-        text-transform: uppercase;
-        letter-spacing: 1.2px;
-        margin-bottom: 8px;
-      }
-
-      .rc-why {
-        font-size: 13px;
-        color: #8a8e86;
-        line-height: 1.65;
-        margin-bottom: 18px;
-      }
-
-      .rc-levels {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 18px;
-      }
-
-      .rc-level {
-        flex: 1;
-        background: var(--bg);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 11px 14px;
-      }
-
-      .rc-level-type {
-        font-size: 9px;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 5px;
-      }
-
-      .rc-level-type.res {
-        color: #f87171;
-      }
-      .rc-level-type.sup {
-        color: var(--green);
-      }
-
-      .rc-level-val {
-        font-family: "Fraunces", serif;
-        font-size: 18px;
-        font-weight: 600;
-        color: var(--text);
-      }
-
-      .rc-tf {
+        letter-spacing: 1.5px;
+        margin-bottom: 16px;
         display: flex;
         align-items: center;
         gap: 8px;
       }
 
-      .rc-tf-chip {
-        font-size: 10px;
-        font-weight: 500;
-        color: var(--gold);
-        background: rgba(201, 169, 110, 0.08);
-        border: 1px solid rgba(201, 169, 110, 0.15);
-        border-radius: 6px;
-        padding: 3px 9px;
-      }
+      .telegram-tag::before { content: ""; display: block; width: 20px; height: 1px; background: var(--green); }
 
-      .rc-tf-text {
-        font-size: 11px;
-        color: var(--text3);
-      }
-
-      .rc-footer {
-        padding: 12px 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-      }
-
-      .rc-disclaimer {
-        font-size: 10px;
-        color: var(--text3);
-        line-height: 1.5;
-        flex: 1;
-        opacity: 0.6;
-      }
-
-      .rc-brand {
+      .telegram-card h3 {
         font-family: "Fraunces", serif;
-        font-size: 12px;
+        font-size: clamp(28px, 4vw, 40px);
         font-weight: 700;
-        color: var(--border2);
-        letter-spacing: 1px;
+        color: var(--text);
+        line-height: 1.1;
+        letter-spacing: -1px;
+        margin-bottom: 14px;
       }
 
-      /* ── BOTTOM CTA ── */
+      .telegram-card h3 em { font-style: italic; color: var(--green); }
+
+      .telegram-card p {
+        font-size: 15px;
+        color: var(--text2);
+        line-height: 1.7;
+        max-width: 400px;
+      }
+
+      .telegram-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        color: #0b0c0b;
+        background: var(--green);
+        border: none;
+        border-radius: 12px;
+        padding: 16px 32px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: opacity 0.2s;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .telegram-btn:hover { opacity: 0.85; }
+
+      .telegram-btn svg { width: 18px; height: 18px; fill: #0b0c0b; }
+
+      /* BOTTOM CTA */
       .bottom-cta {
         text-align: center;
         padding: 100px 24px 120px;
@@ -737,16 +477,10 @@
       .bottom-cta::before {
         content: "";
         position: absolute;
-        bottom: 0;
-        left: 50%;
+        bottom: 0; left: 50%;
         transform: translateX(-50%);
-        width: 500px;
-        height: 300px;
-        background: radial-gradient(
-          ellipse,
-          rgba(63, 217, 122, 0.1) 0%,
-          transparent 70%
-        );
+        width: 500px; height: 300px;
+        background: radial-gradient(ellipse, rgba(63, 217, 122, 0.1) 0%, transparent 70%);
         pointer-events: none;
       }
 
@@ -760,13 +494,7 @@
         color: var(--text);
       }
 
-      .bottom-cta h2 em {
-        font-style: italic;
-        color: var(--green);
-      }
-      .zero {
-        color: var(--green);
-      }
+      .bottom-cta h2 em { font-style: italic; color: var(--green); }
 
       .bottom-cta p {
         font-size: 15px;
@@ -777,7 +505,7 @@
         margin-right: auto;
       }
 
-      /* ── FOOTER ── */
+      /* FOOTER */
       footer {
         border-top: 1px solid var(--border);
         padding: 24px 40px;
@@ -786,94 +514,65 @@
         align-items: center;
       }
 
-      .footer-logo {
-        font-family: "Fraunces", serif;
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--text3);
-      }
+      .footer-logo { font-family: "Fraunces", serif; font-size: 16px; font-weight: 700; color: var(--text3); display: flex; align-items: center; gap: 8px; }
+      .footer-logo span { color: var(--green); }
 
-      .footer-logo span {
-        color: var(--green);
-      }
+      .footer-links { display: flex; align-items: center; gap: 24px; }
 
-      footer p {
+      .footer-telegram {
+        display: flex;
+        align-items: center;
+        gap: 6px;
         font-size: 12px;
         color: var(--text3);
+        text-decoration: none;
+        transition: color 0.2s;
       }
 
-      /* ── ANIMATIONS ── */
+      .footer-telegram:hover { color: var(--green); }
+      .footer-telegram svg { width: 12px; height: 12px; fill: currentColor; }
+
+      footer p { font-size: 12px; color: var(--text3); }
+
+      /* ANIMATIONS */
       @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
-      .fade-in {
-        opacity: 0;
-        transform: translateY(24px);
-        transition:
-          opacity 0.6s ease,
-          transform 0.6s ease;
-      }
+      .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-      .fade-in.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* ── SUCCESS STATE ── */
-      .success-msg {
-        display: none;
-        font-size: 13px;
-        color: var(--green);
-        margin-top: 12px;
-        animation: fadeUp 0.4s ease both;
-      }
-
-      /* ── RESPONSIVE ── */
+      /* RESPONSIVE */
       @media (max-width: 640px) {
-        nav {
-          padding: 16px 20px;
-        }
-        .stats {
-          gap: 24px;
-          flex-wrap: wrap;
-        }
-        .steps {
-          grid-template-columns: 1fr;
-        }
-        footer {
-          flex-direction: column;
-          gap: 8px;
-          text-align: center;
-        }
-        .hero h1 {
-          letter-spacing: -1px;
-        }
-        .hero-content {
-          max-width: 100%;
-          padding: 0;
-        }
-        .form-wrap {
-          max-width: 100%;
-        }
+        nav { padding: 16px 20px; }
+        .nav-telegram { display: none; }
+        .stats { gap: 24px; flex-wrap: wrap; }
+        .steps { grid-template-columns: 1fr; }
+        .telegram-card { flex-direction: column; padding: 36px 24px; }
+        .telegram-btn { width: 100%; justify-content: center; }
+        footer { flex-direction: column; gap: 12px; text-align: center; }
+        .footer-links { flex-direction: column; gap: 8px; }
+        .hero h1 { letter-spacing: -1px; }
+        .hero-content { max-width: 100%; padding: 0; }
       }
     </style>
   </head>
   <body>
+
     <!-- NAV -->
     <nav id="nav">
       <div class="nav-logo">
-        <img src="kairo-logo.png" alt="Kair0" width="35px" />
+        <img src="kairo-logo.png" alt="kair0" width="35px" />
         <div>Kair<span>0</span></div>
       </div>
-      <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+      <div class="nav-right">
+        <a href="https://t.me/kair0labs" target="_blank" class="nav-telegram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.667l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.983.892z"/></svg>
+          Join Telegram
+        </a>
+        <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+      </div>
     </nav>
 
     <!-- HERO -->
@@ -888,7 +587,7 @@
         <h1>The market<br />just <em>moved.</em><br />We told you first.</h1>
 
         <p class="hero-sub">
-          Kair0 reads global news in real time and delivers structured market
+          kair0 reads global news in real time and delivers structured market
           bias for forex pairs directly to your X feed and Telegram. No noise.
           Just direction.
         </p>
@@ -896,79 +595,31 @@
         <!-- TICKER -->
         <div class="ticker-wrap">
           <div class="ticker" id="ticker">
-            <div class="tick-item">
-              <span class="tick-pair">EUR/USD</span
-              ><span class="tick-bias bull">Bullish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">GBP/JPY</span
-              ><span class="tick-bias bear">Bearish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">USD/CAD</span
-              ><span class="tick-bias neut">Neutral</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">AUD/USD</span
-              ><span class="tick-bias bull">Bullish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">USD/CHF</span
-              ><span class="tick-bias bear">Bearish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">NZD/USD</span
-              ><span class="tick-bias bull">Bullish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">USD/JPY</span
-              ><span class="tick-bias bear">Bearish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">EUR/GBP</span
-              ><span class="tick-bias neut">Neutral</span>
-            </div>
-            <!-- duplicate for seamless loop -->
-            <div class="tick-item">
-              <span class="tick-pair">EUR/USD</span
-              ><span class="tick-bias bull">Bullish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">GBP/JPY</span
-              ><span class="tick-bias bear">Bearish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">USD/CAD</span
-              ><span class="tick-bias neut">Neutral</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">AUD/USD</span
-              ><span class="tick-bias bull">Bullish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">USD/CHF</span
-              ><span class="tick-bias bear">Bearish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">NZD/USD</span
-              ><span class="tick-bias bull">Bullish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">USD/JPY</span
-              ><span class="tick-bias bear">Bearish</span>
-            </div>
-            <div class="tick-item">
-              <span class="tick-pair">EUR/GBP</span
-              ><span class="tick-bias neut">Neutral</span>
-            </div>
+            <div class="tick-item"><span class="tick-pair">EUR/USD</span><span class="tick-bias bull">Bullish</span></div>
+            <div class="tick-item"><span class="tick-pair">GBP/JPY</span><span class="tick-bias bear">Bearish</span></div>
+            <div class="tick-item"><span class="tick-pair">USD/CAD</span><span class="tick-bias neut">Neutral</span></div>
+            <div class="tick-item"><span class="tick-pair">AUD/USD</span><span class="tick-bias bull">Bullish</span></div>
+            <div class="tick-item"><span class="tick-pair">USD/CHF</span><span class="tick-bias bear">Bearish</span></div>
+            <div class="tick-item"><span class="tick-pair">NZD/USD</span><span class="tick-bias bull">Bullish</span></div>
+            <div class="tick-item"><span class="tick-pair">USD/JPY</span><span class="tick-bias bear">Bearish</span></div>
+            <div class="tick-item"><span class="tick-pair">EUR/GBP</span><span class="tick-bias neut">Neutral</span></div>
+            <div class="tick-item"><span class="tick-pair">EUR/USD</span><span class="tick-bias bull">Bullish</span></div>
+            <div class="tick-item"><span class="tick-pair">GBP/JPY</span><span class="tick-bias bear">Bearish</span></div>
+            <div class="tick-item"><span class="tick-pair">USD/CAD</span><span class="tick-bias neut">Neutral</span></div>
+            <div class="tick-item"><span class="tick-pair">AUD/USD</span><span class="tick-bias bull">Bullish</span></div>
+            <div class="tick-item"><span class="tick-pair">USD/CHF</span><span class="tick-bias bear">Bearish</span></div>
+            <div class="tick-item"><span class="tick-pair">NZD/USD</span><span class="tick-bias bull">Bullish</span></div>
+            <div class="tick-item"><span class="tick-pair">USD/JPY</span><span class="tick-bias bear">Bearish</span></div>
+            <div class="tick-item"><span class="tick-pair">EUR/GBP</span><span class="tick-bias neut">Neutral</span></div>
           </div>
         </div>
 
         <!-- FORM -->
         <div id="waitlist">
-         <div style="max-width:480px;width:100%;margin:0 auto;">
-  <iframe data-tally-src="https://tally.so/embed/NpBdqB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="174" frameborder="0" marginheight="0" marginwidth="0" title="kair0 Waitlist"></iframe>
-</div>
+          <div style="max-width:480px;width:100%;margin:0 auto;">
+            <iframe data-tally-src="https://tally.so/embed/NpBdqB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="174" frameborder="0" marginheight="0" marginwidth="0" title="kair0 Waitlist"></iframe>
+          </div>
+          <p style="font-size:11px;color:var(--text3);margin-top:12px;">Free during beta · No spam · Unsubscribe anytime</p>
         </div>
       </div>
     </section>
@@ -996,59 +647,33 @@
     <!-- HOW IT WORKS -->
     <section class="how">
       <div class="section-tag fade-in">How it works</div>
-      <h2 class="section-title fade-in">
-        From news to <em>bias</em><br />in under a minute.
-      </h2>
-      <p class="section-sub fade-in">
-        Most traders find out what news means for the market hours too late.
-        Kairo changes that.
-      </p>
+      <h2 class="section-title fade-in">From news to <em>bias</em><br />in under a minute.</h2>
+      <p class="section-sub fade-in">Most traders find out what news means for the market hours too late. kair0 changes that.</p>
 
       <div class="steps">
         <div class="step fade-in">
           <div class="step-num">01</div>
           <div class="step-icon">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 8v4l3 3" />
-            </svg>
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" /></svg>
           </div>
           <h3>News drops</h3>
-          <p>
-            Kairo monitors global financial news feeds 24/7; CPI, NFP, rate
-            decisions, geopolitical events. The moment a trigger fires, the
-            engine activates.
-          </p>
+          <p>kair0 monitors global financial news feeds 24/7 — CPI, NFP, rate decisions, geopolitical events. The moment a trigger fires, the engine activates.</p>
         </div>
         <div class="step fade-in" style="transition-delay: 0.1s">
           <div class="step-num">02</div>
           <div class="step-icon">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
           </div>
           <h3>AI reads the market</h3>
-          <p>
-            The AI analyses the event, cross-references affected pairs, and
-            generates a structured bias, direction, reasoning, key levels, and
-            timeframe.
-          </p>
+          <p>The AI analyses the event, cross-references affected pairs, and generates a structured bias — direction, reasoning, key levels, and timeframe.</p>
         </div>
         <div class="step fade-in" style="transition-delay: 0.2s">
           <div class="step-num">03</div>
           <div class="step-icon">
-            <svg viewBox="0 0 24 24">
-              <path d="M22 2L11 13" />
-              <path d="M22 2L15 22l-4-9-9-4 20-7z" />
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M22 2L11 13" /><path d="M22 2L15 22l-4-9-9-4 20-7z" /></svg>
           </div>
           <h3>You get the signal</h3>
-          <p>
-            A clean, structured bias report lands in your Telegram or X feed
-            before the crowd has finished reading the headline.
-          </p>
+          <p>A clean, structured bias report lands in your Telegram or X feed — before the crowd has finished reading the headline.</p>
         </div>
       </div>
     </section>
@@ -1073,11 +698,7 @@
         </div>
         <div class="rc-body">
           <div class="rc-section-label">Why</div>
-          <div class="rc-why">
-            US CPI came in below expectations at 3.1% vs 3.4% forecast. Softer
-            inflation weakens the case for further Fed tightening, pressuring
-            the dollar.
-          </div>
+          <div class="rc-why">US CPI came in below expectations at 3.1% vs 3.4% forecast. Softer inflation weakens the case for further Fed tightening, pressuring the dollar.</div>
           <div class="rc-section-label">Key Levels</div>
           <div class="rc-levels">
             <div class="rc-level">
@@ -1096,53 +717,63 @@
           </div>
         </div>
         <div class="rc-footer">
-          <div class="rc-disclaimer">
-            AI-generated intelligence, not financial advice. DYOR. You are
-            solely responsible for your trading decisions.
-          </div>
+          <div class="rc-disclaimer">AI-generated intelligence, not financial advice. DYOR. You are solely responsible for your trading decisions.</div>
           <div class="rc-brand">KAIR0</div>
         </div>
+      </div>
+    </section>
+
+    <!-- TELEGRAM SECTION -->
+    <section class="telegram-section">
+      <div class="telegram-card fade-in">
+        <div class="telegram-card-left">
+          <div class="telegram-tag">Community</div>
+          <h3>Get signals <em>first.</em><br />Join our Telegram.</h3>
+          <p>Every kair0 signal drops in our Telegram group the moment it fires. Free to join. No noise — just structured market bias when it matters.</p>
+        </div>
+        <a href="https://t.me/kair0labs" target="_blank" class="telegram-btn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.667l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.983.892z"/></svg>
+          Join t.me/kair0labs
+        </a>
       </div>
     </section>
 
     <!-- BOTTOM CTA -->
     <section class="bottom-cta fade-in">
       <h2>Trade with<br /><em>clarity.</em></h2>
-      <p>Join the waitlist and be first to access Kair0 when we launch.</p>
-     <div style="max-width:480px;width:100%;margin:0 auto;">
-  <iframe data-tally-src="https://tally.so/embed/NpBdqB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="174" frameborder="0" marginheight="0" marginwidth="0" title="kair0 Waitlist"></iframe>
-</div>
+      <p>Join the waitlist and be first to access kair0 when we launch.</p>
+      <div style="max-width:480px;width:100%;margin:0 auto;">
+        <iframe data-tally-src="https://tally.so/embed/NpBdqB?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="174" frameborder="0" marginheight="0" marginwidth="0" title="kair0 Waitlist"></iframe>
+      </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-      <div class="footer-logo">K<span>0</span> Kair0</div>
-      <p>© 2026 Kair0. AI-generated intelligence, not financial advice.</p>
+      <div class="footer-logo">
+        <img src="kairo-logo.png" alt="kair0" width="24px" />
+        Kair<span>0</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://t.me/kair0labs" target="_blank" class="footer-telegram">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.667l-2.965-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.983.892z"/></svg>
+          t.me/kair0labs
+        </a>
+        <p>© 2026 kair0. AI-generated intelligence, not financial advice.</p>
+      </div>
     </footer>
 
     <script>
-  // Nav scroll
-  window.addEventListener("scroll", () => {
-    document
-      .getElementById("nav")
-      .classList.toggle("scrolled", window.scrollY > 40);
-  });
-
-  // Intersection observer for fade-ins
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) e.target.classList.add("visible");
+      window.addEventListener("scroll", () => {
+        document.getElementById("nav").classList.toggle("scrolled", window.scrollY > 40);
       });
-    },
-    { threshold: 0.12 },
-  );
-  document
-    .querySelectorAll(".fade-in")
-    .forEach((el) => observer.observe(el));
 
-  // Tally embed loader
-  var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
-</script>
+      const observer = new IntersectionObserver(
+        (entries) => { entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible"); }); },
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+
+      var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
+    </script>
   </body>
 </html>
